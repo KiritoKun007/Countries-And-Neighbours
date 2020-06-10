@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
-import Countries from '../../components/Countries/Countries'
+import Countries from '../../containers/Countries/Countries'
 
 const Layout = () => {
     return (

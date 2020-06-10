@@ -1,0 +1,7 @@
+@import './assets/styles/colorTheme';
+$theme: ( LightMode: ( text: $very-dark-blue, elements: $white, background: $very-light-grey, input: $dark-grey), DarkMode: ( text: $white, elements: $dark-blue, background: $very-dark-blue-bg, input: $white));
+.App {
+    background-color: $very-light-grey;
+    height: 100vh;
+    color: $very-dark-blue;
+}
