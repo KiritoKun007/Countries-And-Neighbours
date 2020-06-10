@@ -1,0 +1,10 @@
+.Button {
+    background: none;
+    border: none;
+    font: inherit;
+    font-weight: 600;
+    padding: 10px 20px;
+    &:hover {
+        font-weight: 800;
+    }
+}
