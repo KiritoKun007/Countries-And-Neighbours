@@ -1,7 +1,6 @@
 import React from 'react'
 
 import SearchInput from './SearchInput/SearchInput'
-import styles from './Input.module.scss'
 
 const Input = (props) => {
 

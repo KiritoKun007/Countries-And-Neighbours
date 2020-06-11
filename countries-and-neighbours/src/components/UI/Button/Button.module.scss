@@ -1,7 +1,21 @@
+@import '../../../assets/styles/colorTheme';
 .Button {
     background: none;
     border: none;
     font: inherit;
     font-weight: 600;
     padding: 10px 20px;
+}
+
+.BorderCountry {
+    font-weight: 300;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 2px 2px 4px #eee;
+    padding: 5px 10px;
+    margin: 5px;
+    font-size: 12px;
+    &:hover {
+        box-shadow: 2px 2px 4px #ccc;
+    }
 }

@@ -1,0 +1,19 @@
+@import '../../../../assets/styles/colorTheme';
+.BackButton {
+    background-color: white;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 1px 1px 6px #ccc;
+    color: $dark-grey;
+    padding: 8px 13px;
+    i {
+        padding-right: 1rem;
+    }
+    &:hover {
+        color: $dark-blue;
+        cursor: pointer;
+    }
+    &:focus {
+        outline: none;
+    }
+}

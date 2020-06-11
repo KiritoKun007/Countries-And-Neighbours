@@ -45,6 +45,14 @@
                 box-shadow: 3px 3px 6px #eee;
                 max-height: 20rem;
                 overflow: auto;
+                li {
+                    font-size: 12px;
+                    color: $dark-grey;
+                    cursor: pointer;
+                    &:hover {
+                        color: $dark-blue;
+                    }
+                }
             }
         }
     }

@@ -7,7 +7,6 @@ import Input from '../../components/UI/Input/Input'
 import DropDown from '../../components/UI/DropDown/DropDown'
 
 import AllCountries from '../../components/AllCountries/AllCountries'
-import { NavLink } from 'react-router-dom'
 
 class Countries extends Component {
 
@@ -48,25 +47,6 @@ class Countries extends Component {
                 })
         }
     }
-
-    //     // Single Country
-    //     axios.get('/name/Afghanistan?fullText=true&fields=name;capital;region;population;flag;nativeName;subregion;topLevelDomain;currencies;languages;borders')
-    //         .then(response => {
-    //             console.log(response)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-        
-    //     // Search By alpha 3 code
-    //     axios.get('/alpha?codes=col;no;ee&fields=name')
-    //         .then(response => {
-    //             console.log(response)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         }) 
-    // }
 
     showCountryByRegionHandler = (region) => {
 
@@ -115,6 +95,12 @@ class Countries extends Component {
 
     }
 
+    goToSearchedCountries = (countryName) => {
+        this.props.history.push({
+            pathname: '/Country/' + countryName
+        })
+    }
+
     render() {
 
         const { searchInput, searchByRegion, countries, showRegions, searchedCountries } = this.state
@@ -131,11 +117,11 @@ class Countries extends Component {
                 <div className={styles.SearchedCountries}>
                     <ul>
                         {searchedCountries.map(country => (
-                            <NavLink to={{
-                                pathname: '/'
-                            }} key={country.name}>
-                                <li>{country.name}</li>
-                            </NavLink>
+                            <li 
+                                key={country.name} 
+                                onClick={() => this.goToSearchedCountries(country.name)} >
+                                {country.name}
+                            </li>
                         ))}
                     </ul>
                 </div>
