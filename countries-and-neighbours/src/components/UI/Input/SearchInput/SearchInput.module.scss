@@ -1,0 +1,12 @@
+@import '../../../../assets/styles/colorTheme';
+.SearchInput {
+    border: none;
+    background: none;
+    font: inherit;
+    font-size: 12px;
+    width: 100%;
+    color: $dark-grey;
+    &:focus {
+        outline: none;
+    }
+}

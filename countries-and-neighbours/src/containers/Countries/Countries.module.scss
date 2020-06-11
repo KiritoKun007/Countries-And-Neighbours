@@ -1,0 +1,25 @@
+@import '../../assets/styles/colorTheme';
+.Countries {
+    padding: 2rem 3rem;
+    .SearchNFilter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .Search {
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            box-shadow: 3px 3px 6px #eee;
+            height: 2rem;
+            padding: 5px 20px;
+            background-color: $white;
+            width: 50%;
+        }
+        .Search i {
+            font-weight: 600;
+            color: $dark-grey;
+            padding-right: 1.5rem;
+            font-size: 13px;
+        }
+    }
+}
