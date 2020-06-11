@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom'
 
 import Layout from './hoc/Layout/Layout';
 import styles from './App.module.scss';
@@ -10,11 +11,11 @@ function App() {
   let classes = [styles.App, styles[theme]]
 
   return (
-    <div className={classes.join(' ')}>
-      <Layout>
-
-      </Layout>
-    </div>
+    <BrowserRouter>
+      <div className={classes.join(' ')}>
+        <Layout />
+      </div>
+    </BrowserRouter>
   );
 }
 

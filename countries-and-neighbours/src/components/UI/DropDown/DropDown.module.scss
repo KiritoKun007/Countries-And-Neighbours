@@ -1,0 +1,50 @@
+@import '../../../assets/styles/colorTheme';
+.DropDown {
+    width: 25%;
+    position: relative;
+    button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: $white;
+        border: none;
+        padding: 5px 10px;
+        font: inherit;
+        font-size: 11px;
+        color: $dark-grey;
+        height: 2.5rem;
+        border-radius: 5px;
+        box-shadow: 3px 3px 6px #eee;
+        width: 100%;
+        i {
+            font-weight: 600;
+            color: $dark-grey;
+            font-size: 13px;
+        }
+        &:focus {
+            outline: none;
+        }
+    }
+    .DropDownList {
+        position: absolute;
+        top: 3rem;
+        left: 0;
+        background-color: $white;
+        width: 100%;
+        border-radius: 5px;
+        box-shadow: 3px 3px 6px #eee;
+        ul {
+            list-style: none;
+            padding: 0 20px;
+        }
+        li {
+            color: $dark-grey;
+            font-size: 12px;
+            padding: 5px 0;
+        }
+        li:hover {
+            color: $dark-blue;
+            cursor: pointer;
+        }
+    }
+}

@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
 import axios from '../../axios-instance'
 
-import Input from '../../components/UI/Input/Input'
-
 import styles from './Countries.module.scss'
+
+import Input from '../../components/UI/Input/Input'
+import DropDown from '../../components/UI/DropDown/DropDown'
+
+import AllCountries from '../../components/AllCountries/AllCountries'
+import { NavLink } from 'react-router-dom'
 
 class Countries extends Component {
 
@@ -25,21 +29,25 @@ class Countries extends Component {
             { id: 'asia', name: 'Asia' },
             { id: 'europe', name: 'Europe' },
             { id: 'oceania', name: 'Oceania' },
-        ]
+        ],
+        showRegions: false,
+        regionName: 'Filter by region'
     }
 
-    // componentDidMount() {
-    //     // All Country
-    //     axios.get('/all?fields=name;capital;region;population;flag')
-    //         .then(response => {
-    //             console.log(response)
-    //             this.setState({
-    //                 countries: response.data
-    //             })
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
+    componentDidMount() {
+
+        if(!this.state.countries) {
+            axios.get('/all?fields=name;capital;region;population;flag;alpha3Code')
+                .then(response => {
+                    this.setState({
+                        countries: response.data
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }
+    }
 
     //     // Single Country
     //     axios.get('/name/Afghanistan?fullText=true&fields=name;capital;region;population;flag;nativeName;subregion;topLevelDomain;currencies;languages;borders')
@@ -49,24 +57,6 @@ class Countries extends Component {
     //         .catch(error => {
     //             console.log(error)
     //         })
-
-    //     // For Searching
-    //     axios.get('/name/Af?fields=name')
-    //         .then(response => {
-    //             console.log(response)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         })
-
-    //     // Search By Region
-    //     axios.get('/region/Americas?fields=name;capital;region;population;flag')
-    //         .then(response => {
-    //             console.log(response)
-    //         })
-    //         .catch(error => {
-    //             console.log(error)
-    //         }) 
         
     //     // Search By alpha 3 code
     //     axios.get('/alpha?codes=col;no;ee&fields=name')
@@ -78,30 +68,104 @@ class Countries extends Component {
     //         }) 
     // }
 
-    searchedCountriesHandler = (e) => {
+    showCountryByRegionHandler = (region) => {
 
-        console.log(e.target.value)
+        axios.get(`/region/${region}?fields=name;capital;region;population;flag;alpha3Code`)
+            .then(response => {
+                this.setState({
+                    countries: response.data,
+                    showRegions: false,
+                    regionName: region
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            }) 
+    }
+
+    dropDownHandler = () => {
+        this.setState((prevState) => {
+            return {
+                showRegions: !prevState.showRegions
+            }
+        })
+    }
+
+    searchedCountriesHandler = (e) => {
+        let searchInput = {...this.state.searchInput};
+
+        searchInput.value = e.target.value 
+
+        if(searchInput.value !== '') {
+            axios.get(`/name/${searchInput.value}?fields=name`)
+                .then(response => {
+                    console.log(response)
+                    this.setState({
+                        searchedCountries: response.data
+                    })
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        } else {
+            this.setState({
+                searchedCountries: null
+            })
+        }
 
     }
 
     render() {
 
-        const { searchInput } = this.state
+        const { searchInput, searchByRegion, countries, showRegions, searchedCountries } = this.state
+
+        let allCountries = null
+        let searchedCountryList = null
+
+        if(countries) {
+            allCountries = <AllCountries countries={countries} />
+        }
+
+        if(searchedCountries) {
+            searchedCountryList = (
+                <div className={styles.SearchedCountries}>
+                    <ul>
+                        {searchedCountries.map(country => (
+                            <NavLink to={{
+                                pathname: '/'
+                            }} key={country.name}>
+                                <li>{country.name}</li>
+                            </NavLink>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
 
         return (
             <div className={styles.Countries}>
                 <div className={styles.SearchNFilter}>
                     <div className={styles.Search}>
-                        <i class='fas fa-search'></i>
+                        <i className='fas fa-search'></i>
                         <Input 
                             elementType={searchInput.elementType}
                             config={searchInput.elementConfig}
                             value={searchInput.value}
                             inputHandler={this.searchedCountriesHandler} />
+                        {searchedCountryList}
                     </div>
-                    <input type="text"/>
-
+                    <DropDown 
+                        dropDownList={searchByRegion}
+                        showCountryByRegion={this.showCountryByRegionHandler}
+                        show={showRegions}
+                        openCloseDropDown={this.dropDownHandler} >
+                        {this.state.regionName}
+                        <i className='fas fa-angle-down'></i>
+                    </DropDown>
                 </div>
+
+                {allCountries}
+
             </div>
         )
     }
