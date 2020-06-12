@@ -30,16 +30,26 @@ class Countries extends Component {
             { id: 'oceania', name: 'Oceania' },
         ],
         showRegions: false,
-        regionName: 'Filter by region'
+        regionName: 'Filter by region',
+        theme: ''
     }
 
     componentDidMount() {
+
+        const queryParams = new URLSearchParams(this.props.location.search)
+
+        let theme = null
+
+        for (let query of queryParams.entries()) {
+            theme = query[1]
+        }
 
         if(!this.state.countries) {
             axios.get('/all?fields=name;capital;region;population;flag;alpha3Code')
                 .then(response => {
                     this.setState({
-                        countries: response.data
+                        countries: response.data,
+                        theme: theme
                     })
                 })
                 .catch(error => {
@@ -47,6 +57,30 @@ class Countries extends Component {
                 })
         }
     }
+
+    componentDidUpdate() {
+
+        const queryParams = new URLSearchParams(this.props.location.search)
+
+        let theme = null
+
+        for (let query of queryParams.entries()) {
+            theme = query[1]
+        }
+
+        if(this.state.theme !== theme) {
+            this.setState({ theme: theme })
+        }
+
+    }
+
+    // getCountries = () => {
+        // if(!this.state.countries) {
+    //         if(this.state.theme !== this.props.theme) {
+                
+    //         }
+    //     }
+    // }
 
     showCountryByRegionHandler = (region) => {
 
@@ -103,7 +137,7 @@ class Countries extends Component {
 
     render() {
 
-        const { searchInput, searchByRegion, countries, showRegions, searchedCountries } = this.state
+        const { searchInput, searchByRegion, countries, showRegions, searchedCountries, theme } = this.state
 
         let allCountries = null
         let searchedCountryList = null
@@ -128,8 +162,10 @@ class Countries extends Component {
             )
         }
 
+        let classes = [styles.Countries, styles[theme]]
+
         return (
-            <div className={styles.Countries}>
+            <div className={classes.join(' ')}>
                 <div className={styles.SearchNFilter}>
                     <div className={styles.Search}>
                         <i className='fas fa-search'></i>
@@ -137,6 +173,7 @@ class Countries extends Component {
                             elementType={searchInput.elementType}
                             config={searchInput.elementConfig}
                             value={searchInput.value}
+                            theme={theme}
                             inputHandler={this.searchedCountriesHandler} />
                         {searchedCountryList}
                     </div>
@@ -144,7 +181,8 @@ class Countries extends Component {
                         dropDownList={searchByRegion}
                         showCountryByRegion={this.showCountryByRegionHandler}
                         show={showRegions}
-                        openCloseDropDown={this.dropDownHandler} >
+                        openCloseDropDown={this.dropDownHandler}
+                        theme={theme} >
                         {this.state.regionName}
                         <i className='fas fa-angle-down'></i>
                     </DropDown>

@@ -4,3 +4,8 @@ $dark-grey: hsl(0, 0%, 52%);
 $very-dark-blue: hsl(200, 15%, 8%);
 $very-dark-blue-bg: hsl(207, 26%, 17%);
 $dark-blue: hsl(209, 23%, 22%);
+// Box-shadow
+$light-box-shadow: 3px 3px 6px #eee;
+$light-box-shadow-hover: 3px 3px 6px #ccc;
+$dark-box-shadow: 3px 3px 6px $very-dark-blue;
+$dark-box-shadow-hover: 3px 3px 6px #090b0c;

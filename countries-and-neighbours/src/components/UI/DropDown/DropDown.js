@@ -20,11 +20,12 @@ const DropDown = (props) => {
                 </ul>
             </div>
         )
-        
     }
 
+    const classes = [styles.DropDown, styles[props.theme]]
+
     return (
-        <div className={styles.DropDown}>
+        <div className={classes.join(' ')}>
             <button onClick={props.openCloseDropDown}>
                 {props.children}    
             </button>         

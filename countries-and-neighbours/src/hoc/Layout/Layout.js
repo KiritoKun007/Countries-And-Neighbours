@@ -5,16 +5,21 @@ import Toolbar from '../../components/Navigation/Toolbar/Toolbar'
 import Countries from '../../containers/Countries/Countries'
 import Country from '../../containers/Country/Country'
 
-const Layout = () => {
+const Layout = (props) => {
+
     return (
         <Fragment>
-            <Toolbar />
-                {/* <Redirect to='/Country' from="/" exact  /> */}
+            <Toolbar 
+                theme={props.theme}
+                changeThemeHandler={props.changeThemeHandler} />
             <Switch>
-                <Route path='/Country/:name' component={Country} />
-                <Route path='/all-countries' component={Countries} />
+                <Route path='/Country/:name' exact component={Country} />
+                <Route to={{
+                    pathname: '/all-countries',
+                    search: '?theme=' + props.theme
+                }} exact component={Countries} />
             </Switch>
-                <Redirect from='/' to='/all-countries' />
+                <Redirect from='/' to={'/all-countries?theme=' + props.theme } />
         </Fragment>
     )
 }

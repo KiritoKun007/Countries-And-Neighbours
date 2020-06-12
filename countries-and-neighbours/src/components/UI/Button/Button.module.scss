@@ -5,6 +5,14 @@
     font: inherit;
     font-weight: 600;
     padding: 10px 20px;
+    color: inherit;
+    &:focus {
+        outline: none;
+    }
+}
+
+.DarkMode {
+    color: $white;
 }
 
 .BorderCountry {

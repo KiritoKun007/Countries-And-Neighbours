@@ -9,7 +9,7 @@
             display: flex;
             align-items: center;
             border-radius: 5px;
-            box-shadow: 3px 3px 6px #eee;
+            box-shadow: $light-box-shadow;
             height: 2rem;
             padding: 5px 20px;
             background-color: $white;
@@ -40,9 +40,9 @@
             .SearchedCountries {
                 position: absolute;
                 top: 3rem;
-                background: white;
+                background: inherit;
                 border-radius: 5px;
-                box-shadow: 3px 3px 6px #eee;
+                box-shadow: $light-box-shadow;
                 max-height: 20rem;
                 overflow: auto;
                 li {
@@ -53,6 +53,42 @@
                         color: $dark-blue;
                     }
                 }
+            }
+        }
+    }
+}
+
+.DarkMode {
+    .SearchNFilter {
+        .Search {
+            box-shadow: $dark-box-shadow;
+            background-color: $dark-blue;
+            a {
+                color: $white;
+            }
+            li:hover {
+                color: $dark-grey;
+            }
+            i {
+                color: $white;
+            }
+            .SearchedCountries {
+                box-shadow: $dark-box-shadow;
+                li {
+                    color: $white;
+                    &:hover {
+                        color: $dark-grey;
+                    }
+                }
+            }
+        }
+    }
+    .AllCountries {
+        .CountrySummary {
+            background-color: $dark-blue;
+            box-shadow: $dark-box-shadow;
+            &:hover {
+                box-shadow: $dark-box-shadow-hover;
             }
         }
     }

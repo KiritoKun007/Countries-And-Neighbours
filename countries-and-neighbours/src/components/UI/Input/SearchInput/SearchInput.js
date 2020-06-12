@@ -4,9 +4,11 @@ import styles from './SearchInput.module.scss'
 
 const SearchInput = (props) => {
 
+    let clasess = [styles.SearchInput, styles[props.theme]]
+
     return (
         <input 
-            className={styles.SearchInput}
+            className={clasess.join(' ')}
             {...props.config}
             defaultValue={props.value}
             onChange={props.inputHandler} />

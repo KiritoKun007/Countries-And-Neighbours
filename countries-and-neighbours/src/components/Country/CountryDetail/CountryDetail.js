@@ -2,8 +2,9 @@ import React from 'react'
 
 import styles from './CountryDetail.module.scss'
 import Button from '../../UI/Button/Button'
+import { withRouter } from 'react-router-dom'
 
-const CountryDetail = ({ country, borderCountryHandler }) => {
+const CountryDetail = ({ country, borderCountryHandler, location }) => {
 
     let countryDetails = null
     let borderCountry = <p style={{ margin: '0', fontSize: '12px', marginTop: '5px' }}>There are no Border Countries</p>
@@ -68,4 +69,4 @@ const CountryDetail = ({ country, borderCountryHandler }) => {
     return countryDetails
 }
 
-export default CountryDetail
+export default withRouter(CountryDetail)

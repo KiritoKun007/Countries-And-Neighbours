@@ -17,14 +17,21 @@ const Toolbar = (props) => {
         })
     }
 
+    let classes = [styles.Header, styles[props.theme]]
+
     return (
-        <header className={styles.Header}>
+        <header className={classes.join(' ')}>
             <h3>Where in the world?</h3>
             <Button 
-                btnStyle='ThemeChange'
+                btnStyle={props.theme}
                 clicked={props.changeThemeHandler}
                 btnHoverHandler={btnHoverHandler} >
-                <i className={iconClassName} style={{paddingRight: '1rem'}}></i>
+                <i 
+                    className={iconClassName} 
+                    style={{
+                        paddingRight: '1rem',
+                        color: props.theme === 'LightMode' ? 'hsl(209, 23%, 22%)' : 'white'
+                    }}></i>
                 Dark Mode
             </Button>
         </header>

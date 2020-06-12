@@ -4,11 +4,9 @@ import styles from './Button.module.scss'
 
 const Button = ({ btnStyle, clicked, btnHoverHandler, children }) => {
 
-    let classes = [styles.Button, styles[btnStyle]]
-
     return (
         <button 
-            className={classes.join(' ')}
+            className={styles.Button}
             onClick={clicked}
             onMouseOver={btnHoverHandler}
             onMouseLeave={btnHoverHandler} >

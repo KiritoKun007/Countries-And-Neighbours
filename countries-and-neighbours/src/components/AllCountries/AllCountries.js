@@ -17,7 +17,9 @@ class AllCountries extends Component {
         return (
             <div className={styles.AllCountries}>
                 {this.props.countries.map(country => {
-                    return <CountrySummary country={country} key={country.alpha3Code} />
+                    return <CountrySummary 
+                                country={country} 
+                                key={country.alpha3Code} />
                 })}
             </div>
         )
