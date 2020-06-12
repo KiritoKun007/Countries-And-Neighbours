@@ -2,8 +2,8 @@
 .CountrySummary {
     display: flex;
     flex-flow: column;
-    width: 22%;
-    margin: 0 4% 3% 0;
+    width: 100%;
+    margin-bottom: 5%;
     background-color: $white;
     border-radius: 5px;
     box-shadow: $light-box-shadow;
@@ -29,12 +29,39 @@
             font-weight: 600;
         }
     }
-    &:nth-child(4n) {
-        margin-right: 0;
-    }
     &:hover {
         cursor: pointer;
         box-shadow: $light-box-shadow-hover;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 588px) {
+    .CountrySummary {
+        width: 47.5%;
+        margin: 0 5% 3% 0;
+        &:nth-child(2n) {
+            margin-right: 0;
+        }
+    }
+}
+
+@media (min-width: 589px) and (max-width: 849px) {
+    .CountrySummary {
+        width: 29%;
+        margin: 0 6.33% 3% 0;
+        &:nth-child(3n) {
+            margin-right: 0;
+        }
+    }
+}
+
+@media only screen and (min-width: 850px) {
+    .CountrySummary {
+        width: 22%;
+        margin: 0 4% 3% 0;
+        &:nth-child(4n) {
+            margin-right: 0;
+        }
     }
 }
 

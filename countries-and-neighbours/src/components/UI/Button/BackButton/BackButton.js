@@ -9,8 +9,10 @@ const BackButton = (props) => {
         props.history.goBack()
     }
 
+    let classes = [styles.BackButton, styles[props.theme]]
+
     return (
-        <button onClick={goBack} className={styles.BackButton}>
+        <button onClick={goBack} className={classes.join(' ')}>
             {props.children}
         </button>
     )

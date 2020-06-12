@@ -7,19 +7,18 @@ import Country from '../../containers/Country/Country'
 
 const Layout = (props) => {
 
+    const theme = props.theme
+
     return (
         <Fragment>
             <Toolbar 
-                theme={props.theme}
+                theme={theme}
                 changeThemeHandler={props.changeThemeHandler} />
             <Switch>
-                <Route path='/Country/:name' exact component={Country} />
-                <Route to={{
-                    pathname: '/all-countries',
-                    search: '?theme=' + props.theme
-                }} exact component={Countries} />
+                <Route path='/Country/:name' render={(props) => <Country {...props} theme={theme} />} />
+                <Route path="/" render={(props) => <Countries {...props} theme={theme} />} />
             </Switch>
-                <Redirect from='/' to={'/all-countries?theme=' + props.theme } />
+                {/* <Redirect from='/' to={'/all-countries?theme=' + props.theme } /> */}
         </Fragment>
     )
 }

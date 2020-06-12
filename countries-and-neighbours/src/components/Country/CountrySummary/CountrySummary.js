@@ -5,23 +5,13 @@ import styles from './CountrySummary.module.scss'
 
 const CountrySummary = (props) => {
 
-    const [theme, settheme] = useState(null)
-
-    useEffect(() => {
-        const queryParams = new URLSearchParams(props.location.search)
-
-        for (let query of queryParams.entries()) {
-            settheme(query[1])
-        }
-    }, [props.location.search])
-
     const showCountry = () => {
         props.history.push({
             pathname: '/Country/' + props.country.name
         })        
     }
 
-    let classes = [styles.CountrySummary, styles[theme]]
+    let classes = [styles.CountrySummary, styles[props.theme]]
 
     return (
         <div className={classes.join(' ')} onClick={showCountry} >

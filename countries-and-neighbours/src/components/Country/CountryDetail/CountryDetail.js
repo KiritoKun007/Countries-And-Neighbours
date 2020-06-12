@@ -4,7 +4,7 @@ import styles from './CountryDetail.module.scss'
 import Button from '../../UI/Button/Button'
 import { withRouter } from 'react-router-dom'
 
-const CountryDetail = ({ country, borderCountryHandler, location }) => {
+const CountryDetail = ({ country, borderCountryHandler, theme }) => {
 
     let countryDetails = null
     let borderCountry = <p style={{ margin: '0', fontSize: '12px', marginTop: '5px' }}>There are no Border Countries</p>
@@ -20,6 +20,7 @@ const CountryDetail = ({ country, borderCountryHandler, location }) => {
                 return (
                     <Button 
                         btnStyle="BorderCountry"
+                        theme={theme}
                         clicked={() => borderCountryHandler(border.name)}
                         btnHoverHandler={() => {}}
                         key={border.name} >

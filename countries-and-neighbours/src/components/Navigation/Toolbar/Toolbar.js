@@ -23,7 +23,6 @@ const Toolbar = (props) => {
         <header className={classes.join(' ')}>
             <h3>Where in the world?</h3>
             <Button 
-                btnStyle={props.theme}
                 clicked={props.changeThemeHandler}
                 btnHoverHandler={btnHoverHandler} >
                 <i 

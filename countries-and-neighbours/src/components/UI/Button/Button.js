@@ -2,11 +2,13 @@ import React from 'react'
 
 import styles from './Button.module.scss'
 
-const Button = ({ btnStyle, clicked, btnHoverHandler, children }) => {
+const Button = ({ btnStyle, clicked, btnHoverHandler, children, theme }) => {
+
+    let classes = [styles.Button, styles[btnStyle], styles[theme]]
 
     return (
         <button 
-            className={styles.Button}
+            className={classes.join(' ')}
             onClick={clicked}
             onMouseOver={btnHoverHandler}
             onMouseLeave={btnHoverHandler} >

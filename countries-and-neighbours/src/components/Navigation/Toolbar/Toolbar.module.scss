@@ -11,6 +11,15 @@
     h3 {
         margin: 0;
         font-weight: 800;
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 376px) {
+    .Header {
+        h3 {
+            font-size: inherit;
+        }
     }
 }
 

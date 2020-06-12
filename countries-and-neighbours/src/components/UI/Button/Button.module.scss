@@ -6,8 +6,15 @@
     font-weight: 600;
     padding: 10px 20px;
     color: inherit;
+    font-size: 13px;
     &:focus {
         outline: none;
+    }
+}
+
+@media (min-width: 376px) {
+    .Button {
+        font-size: inherit;
     }
 }
 
@@ -17,13 +24,21 @@
 
 .BorderCountry {
     font-weight: 300;
-    background-color: white;
+    background-color: $white;
     border-radius: 2px;
-    box-shadow: 2px 2px 4px #eee;
+    box-shadow: $light-box-shadow;
     padding: 5px 10px;
     margin: 5px;
     font-size: 12px;
     &:hover {
-        box-shadow: 2px 2px 4px #ccc;
+        box-shadow: $light-box-shadow-hover;
+    }
+}
+
+.DarkMode {
+    background-color: $dark-blue;
+    box-shadow: $dark-box-shadow;
+    &:hover {
+        box-shadow: $dark-box-shadow-hover;
     }
 }

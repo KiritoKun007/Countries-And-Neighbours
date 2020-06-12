@@ -70,13 +70,15 @@ class Country extends Component {
     }
 
     render() {
+
         return (
             <div className={styles.Country}>
-                <BackButton>
+                <BackButton theme={this.props.theme}>
                     <i className='fas fa-arrow-left'></i>
                     Back
                 </BackButton>
                 <CountryDetail 
+                    theme={this.props.theme}
                     country={this.state.Country}
                     borderCountryHandler={this.borderCountryHandler} />
             </div>

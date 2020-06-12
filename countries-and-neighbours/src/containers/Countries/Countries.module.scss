@@ -3,8 +3,13 @@
     padding: 2rem 3rem;
     .SearchNFilter {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+        flex-direction: column;
         justify-content: space-between;
+        @media (min-width: 376px) {
+            flex-direction: row;
+            align-items: center;
+        }
         .Search {
             display: flex;
             align-items: center;
@@ -13,8 +18,14 @@
             height: 2rem;
             padding: 5px 20px;
             background-color: $white;
-            width: 40%;
+            width: 100%;
+            margin-bottom: 2rem;
+            box-sizing: border-box;
             position: relative;
+            @media (min-width: 376px) {
+                width: 40%;
+                margin-bottom: 0;
+            }
             ul {
                 list-style: none;
                 padding: 10px 20px;

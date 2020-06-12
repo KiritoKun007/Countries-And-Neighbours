@@ -1,7 +1,10 @@
 @import '../../../assets/styles/colorTheme';
 .DropDown {
-    width: 25%;
+    width: 50%;
     position: relative;
+    @media (min-width: 376px) {
+        width: 25%;
+    }
     button {
         display: flex;
         justify-content: space-between;
