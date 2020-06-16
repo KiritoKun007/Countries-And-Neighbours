@@ -5,14 +5,15 @@ import styles from './Countries.module.scss'
 
 import Input from '../../components/UI/Input/Input'
 import DropDown from '../../components/UI/DropDown/DropDown'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 import AllCountries from '../../components/AllCountries/AllCountries'
+import { connect } from 'react-redux'
+import * as actionCreator from '../../store/action/index'
 
 class Countries extends Component {
 
     state = {
-        countries: null,
-        searchedCountries: null,
         searchInput: {
             elementType: 'input',
             elementConfig: {
@@ -34,41 +35,19 @@ class Countries extends Component {
     }
 
     componentDidMount() {
-
         if(!this.state.countries) {
-            axios.get('/all?fields=name;capital;region;population;flag;alpha3Code')
-                .then(response => {
-                    this.setState({
-                        countries: response.data,
-                    })
-                })
-                .catch(error => {
-                    console.log(error)
-                })
+            this.props.getCountries()
         }
     }
 
-    // getCountries = () => {
-        // if(!this.state.countries) {
-    //         if(this.state.theme !== this.props.theme) {
-                
-    //         }
-    //     }
-    // }
-
     showCountryByRegionHandler = (region) => {
 
-        axios.get(`/region/${region}?fields=name;capital;region;population;flag;alpha3Code`)
-            .then(response => {
-                this.setState({
-                    countries: response.data,
-                    showRegions: false,
-                    regionName: region
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            }) 
+        this.props.getCountriesByRegion(region)
+
+        this.setState({
+            showRegions: false,
+            regionName: region
+        })
     }
 
     dropDownHandler = () => {
@@ -80,27 +59,13 @@ class Countries extends Component {
     }
 
     searchedCountriesHandler = (e) => {
-        let searchInput = {...this.state.searchInput};
+        let newSearchedInput = {...this.state.searchInput};
 
-        searchInput.value = e.target.value 
+        newSearchedInput.value = e.target.value
 
-        if(searchInput.value !== '') {
-            axios.get(`/name/${searchInput.value}?fields=name`)
-                .then(response => {
-                    console.log(response)
-                    this.setState({
-                        searchedCountries: response.data
-                    })
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        } else {
-            this.setState({
-                searchedCountries: null
-            })
-        }
+        this.props.getSearchedCountries(e.target.value)
 
+        this.setState({ searchInput: newSearchedInput })
     }
 
     goToSearchedCountries = (countryName) => {
@@ -111,22 +76,24 @@ class Countries extends Component {
 
     render() {
 
-        const { searchInput, searchByRegion, countries, showRegions, searchedCountries } = this.state
+        const { searchInput, searchByRegion, showRegions } = this.state
 
-        let allCountries = null
+        let allCountries = <Spinner theme={this.props.theme} />
         let searchedCountryList = null
 
-        if(countries) {
-            allCountries = <AllCountries countries={countries} theme={this.props.theme} />
+        if(this.props.ctries) {
+            allCountries = <AllCountries 
+                                countries={this.props.ctries} 
+                                theme={this.props.theme} />
         }
 
-        if(searchedCountries) {
+        if(this.props.srchCtries) {
             searchedCountryList = (
                 <div className={styles.SearchedCountries}>
                     <ul>
-                        {searchedCountries.map(country => (
-                            <li 
-                                key={country.name} 
+                        {this.props.srchCtries.map(country => (
+                            <li
+                                key={country.name}
                                 onClick={() => this.goToSearchedCountries(country.name)} >
                                 {country.name}
                             </li>
@@ -143,7 +110,7 @@ class Countries extends Component {
                 <div className={styles.SearchNFilter}>
                     <div className={styles.Search}>
                         <i className='fas fa-search'></i>
-                        <Input 
+                        <Input
                             elementType={searchInput.elementType}
                             config={searchInput.elementConfig}
                             value={searchInput.value}
@@ -151,7 +118,7 @@ class Countries extends Component {
                             inputHandler={this.searchedCountriesHandler} />
                         {searchedCountryList}
                     </div>
-                    <DropDown 
+                    <DropDown
                         dropDownList={searchByRegion}
                         showCountryByRegion={this.showCountryByRegionHandler}
                         show={showRegions}
@@ -169,4 +136,19 @@ class Countries extends Component {
     }
 }
 
-export default Countries
+const mapStateToProps = state => {
+    return {
+        ctries: state.countries.countries,
+        srchCtries: state.countries.searchedCountries
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getCountries: () => dispatch(actionCreator.getCountries()),
+        getCountriesByRegion: (region) => dispatch(actionCreator.getCountriesByRegion(region)),
+        getSearchedCountries: (name) => dispatch(actionCreator.getSearchedCountries(name))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Countries)
